@@ -1,0 +1,11 @@
+def get_min_coins(amount_rem):
+    coin_comb = [1, 5, 10, 25, 100]
+    coin_list = []
+    sorted_coin_comb = sorted(coin_comb, reverse=True)
+    for coin_value in sorted_coin_comb:
+        coin_count = int(amount_rem/coin_value)
+        coin_list += [coin_value, ] * coin_count
+        amount_rem -= coin_count * coin_value
+        if amount_rem <= 0.0:
+            break
+    return coin_list
