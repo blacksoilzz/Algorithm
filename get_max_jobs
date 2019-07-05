@@ -1,0 +1,9 @@
+def get_max_jobs(joblist):
+    job_schedule = []
+    joblist.sort(key=lambda x: x[2])
+    for n in range(len(joblist)):
+        if not job_schedule:
+            job_schedule.append(joblist[n])
+        elif job_schedule[-1][2] < joblist[n][1]:
+            job_schedule.append(joblist[n])
+    return job_schedule
