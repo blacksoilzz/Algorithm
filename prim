@@ -1,0 +1,33 @@
+import heapq
+import math
+
+
+class PriorityQueue:
+    def __init__(self):
+        self.key = {}
+        self.pqueue = []
+        
+    
+def prim(graph, source):
+    Q = PriorityQueue()
+    mst = {}
+    parent = {}
+    for v in graph:
+        if v == source:
+            Q.key[v] = 0
+            heapq.heappush(Q.pqueue, (0,v))
+        else:
+            Q.key[v] = math.inf
+            heapq.heappush(Q.pqueue, (math.inf, v))
+    parent[source] = None
+    while Q.pqueue:
+        (v_key, v) = heapq.heappop(Q.pqueue)
+        del Q.key[v]
+        mst[v] = parent[v]
+        for u in graph[v]:
+            if u in Q.key and u not in mst:
+                ind_key = Q.pqueue.index((Q.key[u], u))
+                Q.pqueue.pop(ind_key)
+                heapq.heappush(Q.pqueue, (graph[v][u], u))
+                Q.key[u] = graph[v][u]
+                parent[u] = v
